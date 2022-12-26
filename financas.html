@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROLE</title>
+    <style>
+        body{
+            background: linear-gradient(45deg, rgb(59, 72, 53), rgb(0, 0, 0), rgb(14, 65, 15));
+            color: white;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .caixa1{
+            background-color: #261435;
+            width: 400px;
+            height: 650px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        input{
+            text-align: center;
+            display: flex;
+            height: 23px;
+        }
+
+        #pt1, #pt2, #pt3{
+            font-weight: bold;
+            border: 1px black solid;
+            display: flex;
+            flex-direction: column;
+            width: 380px;
+            background-color: rgba(0, 200, 255, 0.622);
+            margin-bottom: 8px;
+        }
+
+        .grupo{
+            font-weight: bold;
+            width: 380px;
+            height: 20px;
+            border: solid 1px rgb(255, 255, 255);
+            overflow:auto;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 8px;
+           
+        }
+        .infoGeral{
+            border-radius: 5px;
+            margin-top: -1px;
+            margin-left: 8px;
+            width: 380px;
+            height: 240px;
+            border: solid 1px rgb(255, 255, 255);
+            overflow:auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button{
+            border-radius: 10px;
+            padding-bottom: 30px;
+            background-color: rgb(100, 214, 100);
+            margin: 10px;
+            width: 140px;
+            height: 30px;
+            color: white;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        button:hover{
+            background-color: rgb(38, 106, 38);
+            cursor: pointer;
+            transform:scale(1.1);
+        }
+        
+        li{
+            list-style: none;
+            margin-left: -50px;
+            margin-top: 5px;
+        }
+
+
+        .botao{
+
+            background-color: #b209099e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            margin-top: 5px;
+            width: 150px;
+            height: 60px;
+            border: solid 1px rgb(0, 0, 0);
+            border-radius: 15px;
+        }
+
+        #liga{
+            font-size: 23px;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="caixa1">
+        <h1>CONTROLE DE GASTOS</h1>
+        <form>
+            <div id="pt1">
+                <label for="nome">Descrição</label>
+                <input type="text" id="descricao" placeholder="Breve descrição do gasto.">
+            </div>
+
+            <div id="pt2">
+                <label for="valor">Gasto R$</label>
+                <input type="number" name="valor" id="valor" placeholder="Valor do gasto.">
+            </div>
+            <div id="pt3">
+                <label for="data">Data</label>
+                <input type="date" name="data" id="data">
+            </div>
+        </form>
+        <button type="submit" onclick="clicou()">Adicionar</button>
+
+        <div class="grupo">
+            <div>-DATA</div> <div>-DESCRIÇÂO</div> <div>-GASTOS R$ </div>
+        </div>
+        <div class="infoGeral">
+            <ol id="lista"></ol>
+            <ol id="lista2"></ol>
+            <ol id="lista3"></ol>
+        </div>
+        <div class="botao">
+            <div id="liga">TOTAL</div>
+        </div>
+
+        <script>
+            var contem = [];
+
+            function clicou(){
+                var descricao = window.document.getElementById("descricao").value;
+                if(descricao.length == 0){
+                    descricao = "Gasto";
+                }
+                var valor = window.document.getElementById("valor").value;
+                if(valor.length == 0){
+                    valor = 0;
+                }
+                var data = window.document.getElementById("data").value;
+                if(data.length == 0){
+                    var x = new Date().toLocaleDateString();
+                    data = x;
+                }
+                var texto = window.document.getElementById("lista");
+                var texto2 = window.document.getElementById("lista2");
+                var texto3 = window.document.getElementById("lista3");
+                var liga = window.document.getElementById("liga");
+
+                contem.push(parseInt(valor));
+
+                texto.innerHTML += "<li>"+data+"</li>";
+                texto2.innerHTML += "<li>"+descricao+"</li>";
+                texto3.innerHTML += "<li>"+"R$ "+valor+"</li>"
+                
+
+
+                var sum = 0;
+                for( var i = 0; i < contem.length; i++ ){
+                    sum+=contem[i];
+                };
+
+                liga.innerHTML = "R$ " +(sum);
+            }
+        </script>
+    </div>
+</body>
+</html>
