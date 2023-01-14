@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculador</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #E0FFFF;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box1{
+            color: white;
+            background: linear-gradient(45deg, crimson, black, crimson);
+            width: 350px;
+            height: 450px;
+            display: grid;
+            justify-content:center;
+            align-items:center;
+            border-radius: 10px;
+        }
+        .box2{
+            color: white;
+            background: linear-gradient(90deg, #696969, crimson, #696969);
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            text-align: right;
+            width: 300px;
+            height: 350px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        h2{
+            font-size: 25px;
+        }
+        
+        label{
+            font-weight: bolder;
+        }
+        #age, #altCorp, #pesoCorp{
+            font-size: 18px;
+            text-align: center;
+            width: 150px;
+        }
+        .sexo{
+            background: black;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        .calcular{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #botao{
+            height: 40px;
+            width: 90px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bolder;
+            cursor: pointer;
+        }
+        #botao:hover{
+            background:linear-gradient(20deg, #00FF00,#008000,#32CD32);
+            color: white;
+        }
+        .second{
+            text-align: center;
+            border-radius: 10px;
+            width: 480px;
+            margin-top: 10px;
+            background: rgb(88, 60, 60);
+            color: white;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        .vermelho{
+            display:inline-block;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: #cd3232;
+            border-radius: 5px;
+            padding: 3px;
+        }
+        .azul{
+            display:inline-block;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: #3263cd;
+            border-radius: 5px;
+            padding: 3px;
+        }
+        .verde{
+            display:inline-block;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: #32CD32;
+            border-radius: 5px;
+            padding: 3px;
+        }
+
+        #roll{
+            background-color: red;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            width: 480px;
+        }
+
+        .liria{
+            margin: 5px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <h1>NÍVEL CORPORAL</h1>
+        <div class="box2">
+            <h2>INSIRA SEUS DADOS</h2>
+            <div class="peso">
+                <label for="peso">Peso: </label>
+                <input type="number" name="peso" id="pesoCorp" placeholder="Kg">
+            </div>
+            <div class="altura">
+                <label for="altura">Altura:</label>
+                <input type="number" name="altura" id="altCorp" placeholder="Exemplo: 1,75">
+            </div>
+            <div class="idade">
+                <label for="idade">Idade:</label>
+                <input type="number" name="idade" id="age" placeholder="Anos">
+            </div>
+            <div class="sexo">
+                <label for="sexo">Sexo: </label>
+                <input type="radio" name="genero" id="masculino" value = 1 > Masculino
+                <input type="radio" name="genero" id="feminino" value = 0 > Feminino
+            </div>
+        </div>
+        <div class="calcular">
+            <input type="button" value="Calcular" id="botao" onclick="calcular()">
+        </div>
+    </div>
+    <div class="second">
+        
+        <div id="return"></div>
+        <div id="return2"></div>
+    </div>   
+
+    <script>
+
+        function calcular(){
+
+            var pesoCorp = window.document.getElementById("pesoCorp").value;
+            var altCorp = window.document.getElementById("altCorp").value;
+            var age = window.document.getElementById("age").value;
+            var valor = window.document.getElementById("return");
+            var valor2 = window.document.getElementById("return2");
+            var radio = window.document.getElementsByName("genero")
+
+                for (var i = 0; i < radio.length; i++) {
+                    if (radio[i].checked) {
+                        var ztx=radio[i].value
+                    }
+
+            var imc = (pesoCorp / (altCorp * altCorp)).toFixed(1)
+            var bt = ((1.20 * imc) + (0.23 * age) - (10.8 * ztx) - 5.4).toFixed(1)
+
+                if(pesoCorp.length == 0 || altCorp.length == 0 || age.length == 0){
+                    valor.innerHTML = `<div id="roll">ERRO! </br> Preencha todos os campos para obter resultado.</div>`
+                }
+                else if(imc < 18.5){
+                    valor.innerHTML = `<div class="vermelho">IMC: MAGREZA</div></br>
+                    Seu índice de massa corporal (IMC) é : <div class="vermelho">${imc}Kg/m²</div>`
+                
+                    valor2.innerHTML = `Percentual de gordura corporal: <div class="vermelho">${bt}%</div>`
+                }
+                else if(imc > 18.5 && imc < 24.9){
+                    valor.innerHTML = `<div class="verde">IMC: NORMAL</div></br>
+                    Seu índice de massa corporal (IMC) é : <div class="verde">${imc}Kg/m²</div>`
+                
+                    valor2.innerHTML = `Percentual de gordura corporal: <div class="verde liria">${bt}%</div>`
+                }
+                else if(imc > 24.9 && imc < 30){
+                    valor.innerHTML = `<div class="azul">IMC: SOBREPESO</div></br>
+                    Seu índice de massa corporal (IMC) é : <div class="azul">${imc}Kg/m²</div>`
+                
+                    valor2.innerHTML = `Percentual de gordura corporal: <div class="azul liria">${bt}%</div>`
+                }
+                else{
+                    valor.innerHTML = `<div class="vermelho">IMC: OBESIDADE</div></br>
+                    Seu índice de massa corporal (IMC) é : <div class="vermelho">${imc}Kg/m²</div>`
+                
+                    valor2.innerHTML = `Percentual de gordura corporal: <div class="vermelho liria">${bt}%</div>`
+                }
+            }
+        }
+    </script>
+</body>
+</html>
